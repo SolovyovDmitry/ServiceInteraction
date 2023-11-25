@@ -18,20 +18,19 @@ namespace RabbitServer.Consumers
       _logger = logger;
     }
 
-    public Task Consume(ConsumeContext<CreateUserRequest> context)
+    public async Task Consume(ConsumeContext<CreateUserRequest> context)
     {
       _logger.LogInformation("Received request from client in server");
 
-      Guid? userId = _command.Execute(context.Message);
+      Guid? userId = await _command.ExecuteAsync(context.Message);
 
       CreateUserResponse response = new() { UserId = userId };
 
-      context.Respond(response);
+      await context.RespondAsync(response);
 
       _logger.LogInformation("Responded to client in server");
 
       // имитация асинхроного выполнения
-      return Task.CompletedTask;
     }
   }
 }

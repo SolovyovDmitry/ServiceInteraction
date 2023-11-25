@@ -9,11 +9,11 @@ namespace RabbitClient.Controllers
   [ApiController]
   public class UsersController : ControllerBase
   {
-    public IActionResult Post(
+    public async Task<IActionResult> Post(
       [FromServices] IMessagePublisher<CreateUserRequest, CreateUserResponse> messagePublisher,
       [FromBody] CreateUserRequest request)
     {
-      var result = messagePublisher.SendMessage(request);
+      var result = await messagePublisher.SendMessageAsync(request);
 
       if (result.UserId is null)
       {

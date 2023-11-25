@@ -4,6 +4,6 @@ namespace RabbitServer.Commands
 {
   public interface ICreateUserCommand
   {
-    Guid? Execute(CreateUserRequest request);
+    Task<Guid?> ExecuteAsync(CreateUserRequest request);
   }
 }

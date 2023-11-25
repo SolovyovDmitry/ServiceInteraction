@@ -1,5 +1,6 @@
 using MassTransit;
 using RabbitServer.Commands;
+using RabbitServer.Validators;
 
 namespace RabbitServer
 {
@@ -15,6 +16,8 @@ namespace RabbitServer
 
       builder.Services.AddScoped<ICreateUserCommand, CreateUserCommand>();
       builder.Services.AddScoped<ICreateCompanyCommand, CreateCompanyCommand>();
+      builder.Services.AddScoped<ICreateUserValidator, CreateUserValidator>();
+
 
       try
       {

@@ -1,17 +1,25 @@
 ﻿using Models.Requests;
+using RabbitServer.Validators;
 
 namespace RabbitServer.Commands
 {
   public class CreateUserCommand : ICreateUserCommand
   {
+    private readonly ICreateUserValidator _validator;
+
+    public CreateUserCommand(ICreateUserValidator validator)
+    {
+      _validator = validator;
+    }
+
     // следующий этап после контроллера
-    public Guid? Execute(CreateUserRequest request)
+    public async Task<Guid?> ExecuteAsync(CreateUserRequest request)
     {
       // валидация
 
       // мапинг
 
-      bool validationResult = Validate(request);
+      bool validationResult = _validator.Validate(request);
 
       if (!validationResult)
       {
@@ -19,11 +27,6 @@ namespace RabbitServer.Commands
       }
 
       return Guid.NewGuid();
-    }
-
-    private bool Validate(CreateUserRequest request)
-    {
-      return false;
     }
   }
 }

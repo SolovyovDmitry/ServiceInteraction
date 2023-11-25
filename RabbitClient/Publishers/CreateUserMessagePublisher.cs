@@ -18,11 +18,11 @@ namespace RabbitClient.Publishers
       _logger = logger;
     }
 
-    public CreateUserResponse SendMessage(CreateUserRequest request)
+    public async Task<CreateUserResponse> SendMessageAsync(CreateUserRequest request)
     {
       _logger.LogInformation("Starting sending request from client");
 
-      Response<CreateUserResponse> result = _requestClient.GetResponse<CreateUserResponse>(request).Result;
+      Response<CreateUserResponse> result = await _requestClient.GetResponse<CreateUserResponse>(request);
 
       _logger.LogInformation("Received request from server in client");
       return result.Message;
